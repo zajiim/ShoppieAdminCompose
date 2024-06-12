@@ -28,7 +28,8 @@ fun LoginContainer(
     onLoginClick: () -> Unit,
     isPasswordVisible: () -> Boolean,
     onTrailingIconClick: () -> Unit,
-    onErrorHint: () -> String?,
+    onEmailErrorHint: () -> String?,
+    onPasswordErrorHint: () -> String?,
     isLoading: () -> Boolean,
     buttonBackgroundColor: Color,
     buttonTextColor: Color,
@@ -53,7 +54,7 @@ fun LoginContainer(
             onValueChange = onEmailChanged,
             onTrailingIconClicked = null,
             trailingIcon = Icons.Default.Email,
-            errorString = onErrorHint()
+            errorString = onEmailErrorHint()
         )
 
         CustomTextField(
@@ -68,7 +69,7 @@ fun LoginContainer(
             visualTransformation = if (isPasswordVisible()) VisualTransformation.None else PasswordVisualTransformation(),
             keyboardType = KeyboardType.Password,
             trailingIcon = if (isPasswordVisible()) visiblePasswordIcon else inVisiblePasswordIcon,
-            errorString = onErrorHint() ?: ""
+            errorString = onPasswordErrorHint() ?: ""
         )
 
         Column(
