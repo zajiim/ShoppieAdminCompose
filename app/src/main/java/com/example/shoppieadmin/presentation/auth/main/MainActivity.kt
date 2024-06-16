@@ -1,7 +1,6 @@
 package com.example.shoppieadmin.presentation.auth.main
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
@@ -14,17 +13,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.lifecycleScope
 import com.example.shoppieadmin.R
-import com.example.shoppieadmin.core.navigation.Routes
 import com.example.shoppieadmin.core.navigation.ShoppieNavGraph
-import com.example.shoppieadmin.domain.auth.login.use_cases.TokenUseCases
 import com.example.shoppieadmin.ui.theme.PrimaryColor
 import com.example.shoppieadmin.ui.theme.ShoppieAdminTheme
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 const val TAG = "MainActivity"
 @AndroidEntryPoint

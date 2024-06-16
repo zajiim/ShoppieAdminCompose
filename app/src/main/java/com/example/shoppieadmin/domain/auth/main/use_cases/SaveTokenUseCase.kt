@@ -1,6 +1,6 @@
-package com.example.shoppieadmin.domain.auth.login.use_cases
+package com.example.shoppieadmin.domain.auth.main.use_cases
 
-import com.example.shoppieadmin.domain.auth.login.datamanager.LocalUserManager
+import com.example.shoppieadmin.domain.auth.main.datamanager.LocalUserManager
 
 class SaveTokenUseCase(
     private val localUserManager: LocalUserManager

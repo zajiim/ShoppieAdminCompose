@@ -7,8 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.shoppieadmin.data.remote.ShoppieApi
 import com.example.shoppieadmin.domain.auth.login.models.LoginRequest
-import com.example.shoppieadmin.domain.auth.login.repository.ShoppieRepo
-import com.example.shoppieadmin.domain.auth.login.use_cases.TokenUseCases
+import com.example.shoppieadmin.domain.auth.main.use_cases.TokenUseCases
 import com.example.shoppieadmin.domain.auth.login.use_cases.ValidationUseCases
 import com.example.shoppieadmin.presentation.auth.login.validation.LoginEmailValidationType
 import com.example.shoppieadmin.presentation.auth.login.validation.LoginPasswordValidationType
