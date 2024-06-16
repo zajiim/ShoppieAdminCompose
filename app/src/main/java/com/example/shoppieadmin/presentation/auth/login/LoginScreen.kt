@@ -43,7 +43,7 @@ fun LoginScreen(
             onEmailChanged = loginViewModel::onEmailChange,
             onPasswordChanged = loginViewModel::onPasswordChange,
             buttonEnabled = { loginViewModel.loginState.value.isInputValid },
-            onLoginClick = { /*TODO*/ },
+            onLoginClick = loginViewModel::onLoginClick ,
             isPasswordVisible = { loginViewModel.loginState.value.isPasswordShown },
             onTrailingIconClick = loginViewModel::onTogglePasswordVisibility,
             onEmailErrorHint = { loginViewModel.loginState.value.emailErrorMsgInput },

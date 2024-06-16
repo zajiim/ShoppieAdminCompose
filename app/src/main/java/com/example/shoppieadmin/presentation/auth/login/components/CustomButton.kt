@@ -1,5 +1,6 @@
 package com.example.shoppieadmin.presentation.auth.login.components
 
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -22,7 +23,7 @@ fun CustomButton(
     isLoading: Boolean,
 ) {
     Button(
-        modifier = modifier,
+        modifier = modifier.height(56.dp),
         onClick = {
             onButtonClicked()
         },

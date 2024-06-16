@@ -1,18 +1,27 @@
 package com.example.shoppieadmin.presentation.auth.login
 
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.shoppieadmin.data.remote.ShoppieApi
+import com.example.shoppieadmin.domain.auth.login.models.LoginRequest
+import com.example.shoppieadmin.domain.auth.login.repository.ShoppieRepo
 import com.example.shoppieadmin.domain.auth.login.use_cases.ValidationUseCases
 import com.example.shoppieadmin.presentation.auth.login.validation.LoginEmailValidationType
 import com.example.shoppieadmin.presentation.auth.login.validation.LoginPasswordValidationType
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import javax.inject.Inject
 
+const val TAG = "LoginViewModel"
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val validationUseCases: ValidationUseCases,
+    private val shoppieRepo: ShoppieApi
 ) : ViewModel() {
 
     private val _loginState: MutableState<LoginState> = mutableStateOf(LoginState())
@@ -102,6 +111,55 @@ class LoginViewModel @Inject constructor(
         loginState.value = loginState.value.copy(
             isPasswordShown = !loginState.value.isPasswordShown
         )
+    }
+
+
+    fun onLoginClick() {
+        loginState.value = loginState.value.copy(
+            isLoading = true
+        )
+
+        viewModelScope.launch {
+
+            loginState.value = try {
+
+                val loginResult = shoppieRepo.logIn(
+                    LoginRequest(
+                        email = loginState.value.emailInput,
+                        password = loginState.value.passwordInput
+                    )
+                )
+
+                Log.e(TAG, loginResult.token)
+
+                loginState.value.copy(
+                    isSuccessfullyLoggedIn = true,
+                    isLoading = false,
+                    afterSuccessfullyLoggedIn = loginResult.token
+                )
+            } catch (e: HttpException) {
+                if (e.code() == 400) {
+                    loginState.value.copy(
+                        errorMsgLoginProcess = e.message(),
+                        isLoading = false
+                    )
+                } else {
+                    Log.e(TAG, "onLoginClick: errorr >>>>>>> ${e.message()}", )
+                    loginState.value.copy(
+                        errorMsgLoginProcess = e.message.toString()
+                    )
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                loginState.value.copy(
+                    errorMsgLoginProcess = e.message
+                )
+            } finally {
+                loginState.value.copy(
+                    isLoading = false
+                )
+            }
+        }
     }
 
 
