@@ -1,6 +1,5 @@
 package com.example.shoppieadmin.presentation.auth.main
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -31,19 +30,13 @@ class MainActivityViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            tokenUseCase.readTokenUseCase().onEach { shouldStartFromHomeScreen ->
-
-                Log.e(TAG, "inside viewmodel token ======= $shouldStartFromHomeScreen ")
-
-                val istokenValid = shouldStartFromHomeScreen?.let { shoppieApi.isTokenValid(it) }
-                if (istokenValid?.data?.status == true) {
-                    Log.e(TAG, "valid token found >>>>>>> ${istokenValid.data} ")
+            tokenUseCase.readTokenUseCase().onEach { token ->
+                val istokenValid = token?.let { shoppieApi.isTokenValid(it) }
+                if (istokenValid?.status == true) {
                     startDestination = Routes.HomeNavigation.route
                 } else {
-                    Log.e(TAG, "token in invalid >>>>>>> ${istokenValid?.data} ")
                     startDestination = Routes.AuthNavigation.route
                 }
-
                 delay(300)
                 splashCondition = false
 

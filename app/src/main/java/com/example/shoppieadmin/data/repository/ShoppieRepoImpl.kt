@@ -31,32 +31,14 @@ class ShoppieRepoImpl @Inject constructor(
 
     override fun isTokenValid(token: String): Flow<Resource<TokenValidationResponse>> = flow {
         try {
-            val response = shoppieApi.isTokenValid(token).data
-            if (response?.status == true) {
+            val response = shoppieApi.isTokenValid(token)
+            if (response.status) {
                 emit(Resource.Success(data = response))
             } else {
-                emit(Resource.Error(message = response?.message.toString()))
+                emit(Resource.Error(message = response.message))
             }
         }catch (e: Exception) {
             emit(Resource.Error(message = e.message.toString()))
         }
     }
-
-//    override fun isTokenValid(token: String?): Flow<Resource<TokenValidationResponse>> = flow {
-//        emit(Resource.Loading())
-//        try {
-//            val response = token?.let { shoppieApi.isTokenValid(it) }
-//            if (response != null) {
-//                if (response.data?.status == true) {
-//                    emit(Resource.Success(data = response.data)) ?: emit(Resource.Error(message = "Empty response body"))
-//                } else {
-//                    emit(Resource.Error(message = "Error code: ${response.message}"))
-//                }
-//            } else {
-//                emit(Resource.Error(message = "Token is null"))
-//            }
-//        } catch (e: Exception) {
-//            emit(Resource.Error(message = e.message.toString()))
-//        }
-//    }
 }

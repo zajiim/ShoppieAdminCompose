@@ -17,6 +17,6 @@ interface ShoppieApi {
     @POST("api/admin/tokenIsValid")
     suspend fun isTokenValid(
         @Header("x-auth-token") token: String,
-        @Header("Content-Type") contentType: String = "application/json"
-    ): Resource<TokenValidationResponse>
+//        @Header("Content-Type") contentType: String = "application/json"
+    ): TokenValidationResponse
 }
