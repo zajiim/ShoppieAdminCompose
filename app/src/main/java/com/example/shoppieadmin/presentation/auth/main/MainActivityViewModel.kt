@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.shoppieadmin.core.navigation.Routes
+import com.example.shoppieadmin.core.navigation.Graph
 import com.example.shoppieadmin.data.remote.ShoppieApi
 import com.example.shoppieadmin.domain.auth.main.use_cases.TokenUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,7 +25,9 @@ class MainActivityViewModel @Inject constructor(
     var splashCondition by mutableStateOf(true)
         private set
 
-    var startDestination by mutableStateOf(Routes.AuthNavigation.route)
+//    var startDestination by mutableStateOf(Routes.AuthNavigation.route)
+//        private set
+    var startRoute by mutableStateOf(Graph.ROOT)
         private set
 
     init {
@@ -33,9 +35,11 @@ class MainActivityViewModel @Inject constructor(
             tokenUseCase.readTokenUseCase().onEach { token ->
                 val istokenValid = token?.let { shoppieApi.isTokenValid(it) }
                 if (istokenValid?.status == true) {
-                    startDestination = Routes.HomeNavigation.route
+//                    startDestination = Routes.HomeNavigation.route
+                    startRoute = Graph.MAIN
                 } else {
-                    startDestination = Routes.AuthNavigation.route
+//                    startDestination = Routes.AuthNavigation.route
+                    startRoute = Graph.ROOT
                 }
                 delay(300)
                 splashCondition = false
