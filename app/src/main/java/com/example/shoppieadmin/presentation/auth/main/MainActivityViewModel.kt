@@ -25,21 +25,18 @@ class MainActivityViewModel @Inject constructor(
     var splashCondition by mutableStateOf(true)
         private set
 
-//    var startDestination by mutableStateOf(Routes.AuthNavigation.route)
-//        private set
-    var startRoute by mutableStateOf(Graph.ROOT)
+
+    var startDestination by mutableStateOf(Graph.AUTH)
         private set
 
     init {
         viewModelScope.launch {
             tokenUseCase.readTokenUseCase().onEach { token ->
-                val istokenValid = token?.let { shoppieApi.isTokenValid(it) }
-                if (istokenValid?.status == true) {
-//                    startDestination = Routes.HomeNavigation.route
-                    startRoute = Graph.MAIN
+                val isTokenValid = token?.let { shoppieApi.isTokenValid(it) }
+                startDestination = if (isTokenValid?.status == true) {
+                    Graph.MAIN
                 } else {
-//                    startDestination = Routes.AuthNavigation.route
-                    startRoute = Graph.ROOT
+                    Graph.AUTH
                 }
                 delay(300)
                 splashCondition = false

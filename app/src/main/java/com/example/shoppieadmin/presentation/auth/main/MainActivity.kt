@@ -1,7 +1,6 @@
 package com.example.shoppieadmin.presentation.auth.main
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
@@ -18,6 +17,7 @@ import com.example.shoppieadmin.ui.theme.ShoppieAdminTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 const val TAG = "MainActivity"
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val viewModel by viewModels<MainActivityViewModel>()
@@ -44,18 +44,8 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     modifier = Modifier.fillMaxSize()
                 ) { paddingValue ->
-
-//                    val startDestination = viewModel.startDestination
-//                    ShoppieNavGraph(
-//                        startDestination = Routes.AuthNavigation.route,
-//                        startDestination = startDestination,
-//                        modifier = Modifier
-//                            .padding(paddingValue)
-//                            .background(PrimaryColor)
-//                    )
-                    val route = viewModel.startRoute
-                    Log.e(TAG, "route>>>>>>>>>: $route", )
-                    RootNavGraph(route = route)
+                    val padding = paddingValue
+                    RootNavGraph()
                 }
             }
         }

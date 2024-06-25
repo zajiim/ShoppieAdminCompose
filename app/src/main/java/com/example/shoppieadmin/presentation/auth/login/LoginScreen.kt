@@ -1,31 +1,43 @@
 package com.example.shoppieadmin.presentation.auth.login
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.example.shoppieadmin.R
-import com.example.shoppieadmin.presentation.auth.login.components.CustomButton
-import com.example.shoppieadmin.presentation.auth.login.components.CustomTextField
+import com.example.shoppieadmin.core.navigation.Graph
 import com.example.shoppieadmin.presentation.auth.login.components.LoginContainer
 import com.example.shoppieadmin.ui.theme.Orange
 
 @Composable
 fun LoginScreen(
+    navController: NavHostController,
     modifier: Modifier = Modifier,
     loginViewModel: LoginViewModel = hiltViewModel(),
 ) {
+
+    val loginState by loginViewModel.loginState
+
+    if (loginState.navigateToMain) {
+        LaunchedEffect(key1 = Unit) {
+            navController.navigate(Graph.MAIN) {
+                popUpTo(Graph.AUTH) { inclusive = true }
+            }
+            loginViewModel.onNavigatedToMain()
+        }
+    }
+
     Column(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -43,7 +55,7 @@ fun LoginScreen(
             onEmailChanged = loginViewModel::onEmailChange,
             onPasswordChanged = loginViewModel::onPasswordChange,
             buttonEnabled = { loginViewModel.loginState.value.isInputValid },
-            onLoginClick = loginViewModel::onLoginClick ,
+            onLoginClick = loginViewModel::onLoginClick,
             isPasswordVisible = { loginViewModel.loginState.value.isPasswordShown },
             onTrailingIconClick = loginViewModel::onTogglePasswordVisibility,
             onEmailErrorHint = { loginViewModel.loginState.value.emailErrorMsgInput },

@@ -9,6 +9,7 @@ data class LoginState(
     val passwordErrorMsgInput: String? = null,
     val isLoading: Boolean = false,
     val isSuccessfullyLoggedIn: Boolean = false,
+    val navigateToMain: Boolean = false,
     val afterSuccessfullyLoggedIn: String? = null,
     val errorMsgLoginProcess: String? = null
 )

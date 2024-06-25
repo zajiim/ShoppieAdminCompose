@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.shoppieadmin.data.remote.ShoppieApi
 import com.example.shoppieadmin.domain.auth.login.models.LoginRequest
-import com.example.shoppieadmin.domain.auth.main.use_cases.TokenUseCases
 import com.example.shoppieadmin.domain.auth.login.use_cases.ValidationUseCases
+import com.example.shoppieadmin.domain.auth.main.use_cases.TokenUseCases
 import com.example.shoppieadmin.presentation.auth.login.validation.LoginEmailValidationType
 import com.example.shoppieadmin.presentation.auth.login.validation.LoginPasswordValidationType
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -115,7 +115,7 @@ class LoginViewModel @Inject constructor(
     }
 
 
-    fun onLoginClick() {
+     fun onLoginClick() {
         loginState.value = loginState.value.copy(
             isLoading = true
         )
@@ -138,8 +138,11 @@ class LoginViewModel @Inject constructor(
                 loginState.value.copy(
                     isSuccessfullyLoggedIn = true,
                     isLoading = false,
-                    afterSuccessfullyLoggedIn = loginResult.token
+                    afterSuccessfullyLoggedIn = loginResult.token,
+                    navigateToMain = true
                 )
+
+
             } catch (e: HttpException) {
                 if (e.code() == 400) {
                     loginState.value.copy(
@@ -147,7 +150,7 @@ class LoginViewModel @Inject constructor(
                         isLoading = false
                     )
                 } else {
-                    Log.e(TAG, "onLoginClick: errorr >>>>>>> ${e.message()}", )
+                    Log.e(TAG, "onLoginClick: errorr >>>>>>> ${e.message()}")
                     loginState.value.copy(
                         errorMsgLoginProcess = e.message.toString()
                     )
@@ -163,6 +166,10 @@ class LoginViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    fun onNavigatedToMain() {
+        loginState.value = loginState.value.copy(navigateToMain = false)
     }
 
 
