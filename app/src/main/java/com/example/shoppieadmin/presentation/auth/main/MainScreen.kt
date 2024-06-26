@@ -63,15 +63,22 @@ fun RowScope.AddItem(
     currentDestination: NavDestination?,
     navController: NavHostController
 ) {
+
+    val isSelected = currentDestination?.hierarchy?.any { it.route == screen.route } == true
     NavigationBarItem(
-        selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
+        selected = isSelected,
         onClick = {
             navController.navigate(screen.route) {
                 popUpTo(navController.graph.findStartDestination().id)
                 launchSingleTop = true
             }
         },
-        icon = { Icon(imageVector = screen.selectedIcon, contentDescription = screen.title) },
+        icon = {
+            Icon(
+                imageVector = if (isSelected) screen.selectedIcon else screen.unSelectedIcon,
+                contentDescription = screen.title
+            )
+        },
         label = { Text(text = screen.title) },
         alwaysShowLabel = false
     )

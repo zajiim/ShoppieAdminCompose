@@ -4,9 +4,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.ui.graphics.vector.ImageVector
 
 sealed class BottomBarScreen(
@@ -25,8 +27,8 @@ sealed class BottomBarScreen(
     data object Stats: BottomBarScreen(
         title = "Stats",
         route = "stats",
-        selectedIcon = Icons.Filled.Favorite,
-        unSelectedIcon = Icons.Outlined.Favorite
+        selectedIcon = Icons.Filled.ShoppingCart,
+        unSelectedIcon = Icons.Outlined.ShoppingCart
     )
 
     data object Profile: BottomBarScreen(
