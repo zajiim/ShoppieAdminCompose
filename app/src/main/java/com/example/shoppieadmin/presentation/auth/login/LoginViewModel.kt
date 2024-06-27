@@ -9,8 +9,8 @@ import com.example.shoppieadmin.data.remote.ShoppieApi
 import com.example.shoppieadmin.domain.auth.login.models.LoginRequest
 import com.example.shoppieadmin.domain.auth.login.use_cases.ValidationUseCases
 import com.example.shoppieadmin.domain.auth.main.use_cases.TokenUseCases
-import com.example.shoppieadmin.presentation.auth.login.validation.LoginEmailValidationType
-import com.example.shoppieadmin.presentation.auth.login.validation.LoginPasswordValidationType
+import com.example.shoppieadmin.domain.auth.login.models.validation.LoginEmailValidationType
+import com.example.shoppieadmin.domain.auth.login.models.validation.LoginPasswordValidationType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.HttpException

@@ -81,6 +81,12 @@ dependencies {
     //Datastore
     implementation(libs.androidx.datastore.preferences)
 
+    //Coil
+    implementation(libs.coil.compose)
+
+    //Cloudinary
+    implementation(libs.cloudinary.cloudinary.android)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

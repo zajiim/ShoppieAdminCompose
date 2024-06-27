@@ -8,6 +8,7 @@ import com.example.shoppieadmin.domain.auth.main.models.BottomBarScreen
 import com.example.shoppieadmin.presentation.home.HomeScreen
 import com.example.shoppieadmin.presentation.home.ProfileScreen
 import com.example.shoppieadmin.presentation.home.StatsScreen
+import com.example.shoppieadmin.presentation.home.add_products.AddProductsScreen
 
 @Composable
 fun MainNavGraph(navController: NavHostController) {
@@ -17,7 +18,13 @@ fun MainNavGraph(navController: NavHostController) {
         route = Graph.MAIN
     ) {
         composable(BottomBarScreen.Home.route) {
-            HomeScreen()
+            HomeScreen {
+                navController.navigate(DetailsScreenRoutes.AddProducts.route) {
+                    composable(route = DetailsScreenRoutes.AddProducts.route) {
+                        AddProductsScreen()
+                    }
+                }
+            }
         }
 
         composable(BottomBarScreen.Stats.route) {

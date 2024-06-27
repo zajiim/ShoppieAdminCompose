@@ -1,9 +1,13 @@
 package com.example.shoppieadmin.core.di
 
 import android.app.Application
+import com.cloudinary.Cloudinary
+import com.example.shoppieadmin.data.add_products.repository.CloudinaryRepoImpl
 import com.example.shoppieadmin.data.datamanager.LocalUserManagerImpl
 import com.example.shoppieadmin.data.remote.ShoppieApi
 import com.example.shoppieadmin.data.repository.ShoppieRepoImpl
+import com.example.shoppieadmin.domain.auth.add_products.repository.CloudinaryRepo
+import com.example.shoppieadmin.domain.auth.add_products.use_cases.UploadImageUseCase
 import com.example.shoppieadmin.domain.auth.main.datamanager.LocalUserManager
 import com.example.shoppieadmin.domain.auth.login.repository.ShoppieRepo
 import com.example.shoppieadmin.domain.auth.main.use_cases.ReadTokenUseCase
@@ -89,6 +93,18 @@ object ShoppieAppModule {
         SaveTokenUseCase(localUserManager),
         ReadTokenUseCase(localUserManager)
     )
+
+    @Provides
+    @Singleton
+    fun providesCloudinaryRepository(): CloudinaryRepo {
+        return CloudinaryRepoImpl()
+    }
+
+    @Provides
+    @Singleton
+    fun provideUploadImageUseCase(cloudinaryRepo: CloudinaryRepo): UploadImageUseCase {
+        return UploadImageUseCase(cloudinaryRepo)
+    }
 
 
 }

@@ -1,7 +1,7 @@
 package com.example.shoppieadmin.domain.auth.login.use_cases
 
 import android.util.Patterns
-import com.example.shoppieadmin.presentation.auth.login.validation.LoginEmailValidationType
+import com.example.shoppieadmin.domain.auth.login.models.validation.LoginEmailValidationType
 
 class ValidationEmailUseCase {
     operator fun invoke(email: String): LoginEmailValidationType {

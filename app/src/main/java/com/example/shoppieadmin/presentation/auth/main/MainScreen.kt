@@ -1,13 +1,19 @@
 package com.example.shoppieadmin.presentation.auth.main
 
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -16,6 +22,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.shoppieadmin.core.navigation.MainNavGraph
 import com.example.shoppieadmin.domain.auth.main.models.BottomBarScreen
+import com.example.shoppieadmin.ui.theme.PrimaryColor
+import com.example.shoppieadmin.ui.theme.PrimaryDark
 
 @Composable
 fun MainScreen(navHostController: NavHostController = rememberNavController()) {
@@ -45,7 +53,11 @@ fun BottomBar(navHostController: NavHostController) {
     val bottomBarDestination = screens.any { it.route == currentDestination?.route }
 
     if (bottomBarDestination) {
-        NavigationBar {
+        NavigationBar(
+            modifier = Modifier.fillMaxWidth(),
+            containerColor = PrimaryColor,
+            tonalElevation = 10.dp
+        ) {
             screens.forEach { screen ->
                 AddItem(
                     screen = screen,
@@ -80,7 +92,20 @@ fun RowScope.AddItem(
             )
         },
         label = { Text(text = screen.title) },
-        alwaysShowLabel = false
+        alwaysShowLabel = false,
+        colors = NavigationBarItemDefaults.colors(
+            selectedIconColor = PrimaryDark,
+            selectedTextColor = PrimaryColor,
+            unselectedIconColor = Color.Gray,
+            unselectedTextColor = Color.Gray,
+            indicatorColor = Color.Transparent
+        )
     )
+}
 
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+private fun BottomBarPreview() {
+    BottomBar(navHostController = rememberNavController())
 }

@@ -1,4 +1,4 @@
-package com.example.shoppieadmin.presentation.auth.login.validation
+package com.example.shoppieadmin.domain.auth.login.models.validation
 
 enum class LoginEmailValidationType {
     EMPTY_EMAIL,
