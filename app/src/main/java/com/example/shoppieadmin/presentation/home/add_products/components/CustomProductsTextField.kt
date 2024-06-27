@@ -20,28 +20,24 @@ import com.example.shoppieadmin.ui.theme.PrimaryColor
 @Composable
 fun CustomProductsTextField(
     modifier: Modifier = Modifier,
-    placeHolder: String,
+    placeHolderText: String,
     textValue: String,
     onValueChange: (String) -> Unit,
     keyboardType: KeyboardType = KeyboardType.Ascii,
     minLines: Int = 1,
     isSingleLine: Boolean = true,
-    cursorColor: Color,
-    hintColor: Color
+    cursorColor: Color
 ) {
 
     OutlinedTextField(
         modifier = modifier
             .fillMaxWidth()
             .height(56.dp)
-            .border(0.5.dp, cursorColor, RoundedCornerShape(24.dp))
-            .shadow(
-                3.dp, RoundedCornerShape(24.dp)
-            ),
+            .border(0.5.dp, cursorColor, RoundedCornerShape(24.dp)),
         value = textValue,
         onValueChange = onValueChange,
         singleLine = isSingleLine,
-        placeholder = { Text(text = placeHolder, color = hintColor) },
+        placeholder = { Text(text = placeHolderText, color = cursorColor) },
         shape = RoundedCornerShape(24.dp),
         minLines = minLines,
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType)
@@ -49,15 +45,3 @@ fun CustomProductsTextField(
 }
 
 
-@Preview(showBackground = true)
-@Preview(uiMode = UI_MODE_NIGHT_YES, showBackground = true)
-@Composable
-private fun CustomTextFieldPreview() {
-    CustomProductsTextField(
-        placeHolder = "product name",
-        textValue = "name",
-        onValueChange = {},
-        cursorColor = PrimaryColor,
-        hintColor = Color.Gray
-    )
-}

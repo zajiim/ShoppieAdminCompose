@@ -2,6 +2,7 @@ package com.example.shoppieadmin.presentation.home.add_products
 
 import android.net.Uri
 import android.util.Log
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -23,6 +24,8 @@ class AddProductsViewModel @Inject constructor(
 
     var productsState by mutableStateOf<AddProductsState>(AddProductsState())
         private set
+//    private val _productsState: MutableState<AddProductsState> = mutableStateOf(AddProductsState())
+//    val productsState = _productsState
 
     private val _images = MutableStateFlow<List<Uri>>(emptyList())
     val images: StateFlow<List<Uri>> = _images.asStateFlow()
@@ -33,30 +36,35 @@ class AddProductsViewModel @Inject constructor(
 
 
     fun onNameChange(newValue: String) {
+//        _productsState.value = _productsState.value.copy(
         productsState = productsState.copy(
             nameInput = newValue
         )
     }
 
     fun onDescriptionChange(newValue: String) {
+//        _productsState.value = _productsState.value.copy(
         productsState = productsState.copy(
             descriptionInput = newValue
         )
     }
 
-    fun onPriceChange(newValue: Int) {
+    fun onPriceChange(newValue: String) {
+//        _productsState.value = _productsState.value.copy(
         productsState = productsState.copy(
             price = newValue
         )
     }
 
-    fun onQuantityChange(newValue: Int) {
+    fun onQuantityChange(newValue: String) {
+//        _productsState.value = _productsState.value.copy(
         productsState = productsState.copy(
             quantity = newValue
         )
     }
 
     fun onCategoryChange(newValue: String) {
+//        _productsState.value = _productsState.value.copy(
         productsState = productsState.copy(
             productCategory = newValue
         )
