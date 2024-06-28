@@ -17,6 +17,7 @@ import com.example.shoppieadmin.domain.auth.login.use_cases.ValidationEmailUseCa
 import com.example.shoppieadmin.domain.auth.login.use_cases.ValidationPasswordUseCase
 import com.example.shoppieadmin.domain.auth.login.use_cases.ValidationUseCases
 import com.example.shoppieadmin.domain.home.repository.paging.GetProductsRepo
+import com.example.shoppieadmin.domain.home.use_cases.GetAllProductsUseCase
 import com.example.shoppieadmin.utils.Constants
 import dagger.Module
 import dagger.Provides
@@ -114,5 +115,10 @@ object ShoppieAppModule {
         localUserManager: LocalUserManager
     ): GetProductsRepo = GetProductsRepoImpl(shoppieApi, localUserManager)
 
+    @Provides
+    @Singleton
+    fun provideGetAllProductsUseCase(
+        getProductsRepo: GetProductsRepo
+    ): GetAllProductsUseCase = GetAllProductsUseCase(getProductsRepo)
 
 }

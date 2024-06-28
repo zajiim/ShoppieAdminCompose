@@ -59,6 +59,7 @@ import com.example.shoppieadmin.ui.theme.Orange
 import com.example.shoppieadmin.ui.theme.PrimaryColor
 import com.example.shoppieadmin.ui.theme.PrimaryDark
 import com.example.shoppieadmin.utils.Resource
+import com.example.shoppieadmin.utils.shimmerEffect
 import kotlinx.coroutines.launch
 
 
@@ -175,12 +176,14 @@ fun AddProductsScreen(
                                 .fillMaxSize()
                                 .background(PrimaryColor.copy(alpha = 0.1f))
                                 .align(Alignment.Center)
+                                .shimmerEffect()
                         ) {
-                            CircularProgressIndicator(
-                                modifier = Modifier.align(
-                                    Alignment.Center
-                                )
-                            )
+
+//                            CircularProgressIndicator(
+//                                modifier = Modifier.align(
+//                                    Alignment.Center
+//                                )
+//                            )
                         }
                     }
                 }
