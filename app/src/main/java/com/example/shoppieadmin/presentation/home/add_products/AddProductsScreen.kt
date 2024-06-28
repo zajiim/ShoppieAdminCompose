@@ -50,6 +50,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.example.shoppieadmin.presentation.auth.login.components.CustomButton
@@ -65,6 +66,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun AddProductsScreen(
     viewModel: AddProductsViewModel = hiltViewModel(),
+    navController: NavHostController
     ) {
 
     val images by viewModel.images.collectAsState()
@@ -93,7 +95,7 @@ fun AddProductsScreen(
             Text(text = "Top App Bar")
         }, navigationIcon = {
             IconButton(onClick = {
-
+                navController.navigateUp()
             }) {
                 Icon(Icons.Filled.ArrowBack, "backIcon")
             }
@@ -116,6 +118,8 @@ fun AddProductsScreen(
                     snackBarHostState.showSnackbar(
                         "Product added"
                     )
+
+                    navController.navigateUp()
                 }
             }
             item {

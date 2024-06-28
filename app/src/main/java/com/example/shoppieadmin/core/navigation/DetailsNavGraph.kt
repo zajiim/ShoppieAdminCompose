@@ -12,7 +12,7 @@ fun NavGraphBuilder.detailsNavGraph(navController: NavHostController) {
         startDestination = DetailsScreenRoutes.AddProducts.route
     ) {
         composable(route = DetailsScreenRoutes.AddProducts.route) {
-            AddProductsScreen()
+            AddProductsScreen(navController = navController)
         }
     }
 }

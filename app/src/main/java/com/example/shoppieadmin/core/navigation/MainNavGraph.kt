@@ -21,7 +21,7 @@ fun MainNavGraph(navController: NavHostController) {
             HomeScreen {
                 navController.navigate(DetailsScreenRoutes.AddProducts.route) {
                     composable(route = DetailsScreenRoutes.AddProducts.route) {
-                        AddProductsScreen()
+                        AddProductsScreen(navController = navController)
                     }
                 }
             }
