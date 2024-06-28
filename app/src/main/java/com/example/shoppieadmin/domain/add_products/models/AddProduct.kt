@@ -1,4 +1,4 @@
-package com.example.shoppieadmin.domain.auth.add_products.models
+package com.example.shoppieadmin.domain.add_products.models
 
 data class AddProduct(
     val name: String,

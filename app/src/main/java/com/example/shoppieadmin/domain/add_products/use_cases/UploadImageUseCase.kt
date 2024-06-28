@@ -1,7 +1,7 @@
-package com.example.shoppieadmin.domain.auth.add_products.use_cases
+package com.example.shoppieadmin.domain.add_products.use_cases
 
 import android.net.Uri
-import com.example.shoppieadmin.domain.auth.add_products.repository.CloudinaryRepo
+import com.example.shoppieadmin.domain.add_products.repository.CloudinaryRepo
 import javax.inject.Inject
 
 class UploadImageUseCase @Inject constructor(

@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.shoppieadmin.domain.auth.main.models.BottomBarScreen
+import com.example.shoppieadmin.domain.main.models.BottomBarScreen
 import com.example.shoppieadmin.presentation.home.HomeScreen
 import com.example.shoppieadmin.presentation.home.ProfileScreen
 import com.example.shoppieadmin.presentation.home.StatsScreen

@@ -1,21 +1,22 @@
 package com.example.shoppieadmin.core.di
 
 import android.app.Application
-import com.cloudinary.Cloudinary
 import com.example.shoppieadmin.data.add_products.repository.CloudinaryRepoImpl
 import com.example.shoppieadmin.data.datamanager.LocalUserManagerImpl
-import com.example.shoppieadmin.data.remote.ShoppieApi
+import com.example.shoppieadmin.data.remote.api.ShoppieApi
+import com.example.shoppieadmin.data.repository.GetProductsRepoImpl
 import com.example.shoppieadmin.data.repository.ShoppieRepoImpl
-import com.example.shoppieadmin.domain.auth.add_products.repository.CloudinaryRepo
-import com.example.shoppieadmin.domain.auth.add_products.use_cases.UploadImageUseCase
-import com.example.shoppieadmin.domain.auth.main.datamanager.LocalUserManager
+import com.example.shoppieadmin.domain.add_products.repository.CloudinaryRepo
+import com.example.shoppieadmin.domain.add_products.use_cases.UploadImageUseCase
+import com.example.shoppieadmin.domain.main.datamanager.LocalUserManager
 import com.example.shoppieadmin.domain.auth.login.repository.ShoppieRepo
-import com.example.shoppieadmin.domain.auth.main.use_cases.ReadTokenUseCase
-import com.example.shoppieadmin.domain.auth.main.use_cases.SaveTokenUseCase
-import com.example.shoppieadmin.domain.auth.main.use_cases.TokenUseCases
+import com.example.shoppieadmin.domain.main.use_cases.ReadTokenUseCase
+import com.example.shoppieadmin.domain.main.use_cases.SaveTokenUseCase
+import com.example.shoppieadmin.domain.main.use_cases.TokenUseCases
 import com.example.shoppieadmin.domain.auth.login.use_cases.ValidationEmailUseCase
 import com.example.shoppieadmin.domain.auth.login.use_cases.ValidationPasswordUseCase
 import com.example.shoppieadmin.domain.auth.login.use_cases.ValidationUseCases
+import com.example.shoppieadmin.domain.home.repository.paging.GetProductsRepo
 import com.example.shoppieadmin.utils.Constants
 import dagger.Module
 import dagger.Provides
@@ -105,6 +106,13 @@ object ShoppieAppModule {
     fun provideUploadImageUseCase(cloudinaryRepo: CloudinaryRepo): UploadImageUseCase {
         return UploadImageUseCase(cloudinaryRepo)
     }
+
+    @Provides
+    @Singleton
+    fun provideGetProductsRepo(
+        shoppieApi: ShoppieApi,
+        localUserManager: LocalUserManager
+    ): GetProductsRepo = GetProductsRepoImpl(shoppieApi, localUserManager)
 
 
 }

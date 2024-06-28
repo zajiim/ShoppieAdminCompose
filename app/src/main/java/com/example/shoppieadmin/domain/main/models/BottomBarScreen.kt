@@ -1,4 +1,4 @@
-package com.example.shoppieadmin.domain.auth.main.models
+package com.example.shoppieadmin.domain.main.models
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite

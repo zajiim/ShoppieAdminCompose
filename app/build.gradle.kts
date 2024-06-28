@@ -87,6 +87,10 @@ dependencies {
     //Cloudinary
     implementation(libs.cloudinary.cloudinary.android)
 
+    //Paging3
+    implementation(libs.androidx.paging.compose)
+    implementation(libs.androidx.paging.runtime.ktx)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

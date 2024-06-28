@@ -1,12 +1,13 @@
 package com.example.shoppieadmin.data.repository
 
-import com.example.shoppieadmin.data.remote.ShoppieApi
-import com.example.shoppieadmin.domain.auth.add_products.models.AddProduct
-import com.example.shoppieadmin.domain.auth.add_products.models.AddProductsResponse
+import com.example.shoppieadmin.data.remote.api.ShoppieApi
+import com.example.shoppieadmin.domain.add_products.models.AddProduct
+import com.example.shoppieadmin.domain.add_products.models.AddProductsResponse
 import com.example.shoppieadmin.domain.auth.login.models.LoginRequest
 import com.example.shoppieadmin.domain.auth.login.models.LoginResponse
 import com.example.shoppieadmin.domain.auth.login.repository.ShoppieRepo
-import com.example.shoppieadmin.domain.auth.main.models.TokenValidationResponse
+import com.example.shoppieadmin.domain.home.models.AllProductsResponse
+import com.example.shoppieadmin.domain.main.models.TokenValidationResponse
 import com.example.shoppieadmin.utils.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -14,14 +15,13 @@ import javax.inject.Inject
 
 class ShoppieRepoImpl @Inject constructor(
     private val shoppieApi: ShoppieApi
-): ShoppieRepo {
+) : ShoppieRepo {
     override fun logIn(email: String, password: String): Flow<Resource<LoginResponse>> = flow {
 
         try {
             val response = shoppieApi.logIn(
                 LoginRequest(
-                    email,
-                    password
+                    email, password
                 )
             )
             emit(Resource.Success(data = response))
@@ -39,14 +39,13 @@ class ShoppieRepoImpl @Inject constructor(
             } else {
                 emit(Resource.Error(message = response.message))
             }
-        }catch (e: Exception) {
+        } catch (e: Exception) {
             emit(Resource.Error(message = e.message.toString()))
         }
     }
 
     override fun addProducts(
-        token: String,
-        addProduct: AddProduct
+        token: String, addProduct: AddProduct
     ): Flow<Resource<AddProductsResponse>> = flow {
         try {
             val response = shoppieApi.uploadProduct(
@@ -60,4 +59,5 @@ class ShoppieRepoImpl @Inject constructor(
         }
 
     }
+
 }

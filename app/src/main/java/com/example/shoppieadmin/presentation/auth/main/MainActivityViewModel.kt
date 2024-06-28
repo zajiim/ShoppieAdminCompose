@@ -6,8 +6,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.shoppieadmin.core.navigation.Graph
-import com.example.shoppieadmin.data.remote.ShoppieApi
-import com.example.shoppieadmin.domain.auth.main.use_cases.TokenUseCases
+import com.example.shoppieadmin.data.remote.api.ShoppieApi
+import com.example.shoppieadmin.domain.main.use_cases.TokenUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn

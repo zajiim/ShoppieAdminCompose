@@ -5,10 +5,10 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.shoppieadmin.data.remote.ShoppieApi
+import com.example.shoppieadmin.data.remote.api.ShoppieApi
 import com.example.shoppieadmin.domain.auth.login.models.LoginRequest
 import com.example.shoppieadmin.domain.auth.login.use_cases.ValidationUseCases
-import com.example.shoppieadmin.domain.auth.main.use_cases.TokenUseCases
+import com.example.shoppieadmin.domain.main.use_cases.TokenUseCases
 import com.example.shoppieadmin.domain.auth.login.models.validation.LoginEmailValidationType
 import com.example.shoppieadmin.domain.auth.login.models.validation.LoginPasswordValidationType
 import dagger.hilt.android.lifecycle.HiltViewModel

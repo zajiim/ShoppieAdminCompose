@@ -1,6 +1,6 @@
-package com.example.shoppieadmin.domain.auth.main.use_cases
+package com.example.shoppieadmin.domain.main.use_cases
 
-import com.example.shoppieadmin.domain.auth.main.datamanager.LocalUserManager
+import com.example.shoppieadmin.domain.main.datamanager.LocalUserManager
 import kotlinx.coroutines.flow.Flow
 
 class ReadTokenUseCase(

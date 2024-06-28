@@ -1,4 +1,4 @@
-package com.example.shoppieadmin.domain.auth.main.models
+package com.example.shoppieadmin.domain.main.models
 
 
 import com.google.gson.annotations.SerializedName

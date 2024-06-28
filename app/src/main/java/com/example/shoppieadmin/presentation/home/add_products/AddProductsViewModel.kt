@@ -1,22 +1,18 @@
 package com.example.shoppieadmin.presentation.home.add_products
 
-import android.content.Context
 import android.net.Uri
 import android.util.Log
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.core.os.trace
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.shoppieadmin.data.remote.ShoppieApi
-import com.example.shoppieadmin.domain.auth.add_products.models.AddProduct
-import com.example.shoppieadmin.domain.auth.add_products.use_cases.UploadImageUseCase
-import com.example.shoppieadmin.domain.auth.main.datamanager.LocalUserManager
+import com.example.shoppieadmin.data.remote.api.ShoppieApi
+import com.example.shoppieadmin.domain.add_products.models.AddProduct
+import com.example.shoppieadmin.domain.add_products.use_cases.UploadImageUseCase
+import com.example.shoppieadmin.domain.main.datamanager.LocalUserManager
 import com.example.shoppieadmin.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

@@ -5,7 +5,7 @@ import android.util.Log
 import com.cloudinary.android.MediaManager
 import com.cloudinary.android.callback.ErrorInfo
 import com.cloudinary.android.callback.UploadCallback
-import com.example.shoppieadmin.domain.auth.add_products.repository.CloudinaryRepo
+import com.example.shoppieadmin.domain.add_products.repository.CloudinaryRepo
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.suspendCancellableCoroutine
 import javax.inject.Inject

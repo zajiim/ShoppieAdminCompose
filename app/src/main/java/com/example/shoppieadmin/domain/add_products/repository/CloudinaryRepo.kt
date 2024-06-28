@@ -1,4 +1,4 @@
-package com.example.shoppieadmin.domain.auth.add_products.repository
+package com.example.shoppieadmin.domain.add_products.repository
 
 import android.net.Uri
 

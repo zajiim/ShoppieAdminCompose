@@ -21,7 +21,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.shoppieadmin.core.navigation.MainNavGraph
-import com.example.shoppieadmin.domain.auth.main.models.BottomBarScreen
+import com.example.shoppieadmin.domain.main.models.BottomBarScreen
 import com.example.shoppieadmin.ui.theme.PrimaryColor
 import com.example.shoppieadmin.ui.theme.PrimaryDark
 

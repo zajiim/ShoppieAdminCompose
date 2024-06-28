@@ -1,4 +1,4 @@
-package com.example.shoppieadmin.domain.auth.main.datamanager
+package com.example.shoppieadmin.domain.main.datamanager
 
 import kotlinx.coroutines.flow.Flow
 
