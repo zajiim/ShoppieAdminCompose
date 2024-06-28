@@ -1,6 +1,8 @@
 package com.example.shoppieadmin.data.repository
 
 import com.example.shoppieadmin.data.remote.ShoppieApi
+import com.example.shoppieadmin.domain.auth.add_products.models.AddProduct
+import com.example.shoppieadmin.domain.auth.add_products.models.AddProductsResponse
 import com.example.shoppieadmin.domain.auth.login.models.LoginRequest
 import com.example.shoppieadmin.domain.auth.login.models.LoginResponse
 import com.example.shoppieadmin.domain.auth.login.repository.ShoppieRepo
@@ -40,5 +42,22 @@ class ShoppieRepoImpl @Inject constructor(
         }catch (e: Exception) {
             emit(Resource.Error(message = e.message.toString()))
         }
+    }
+
+    override fun addProducts(
+        token: String,
+        addProduct: AddProduct
+    ): Flow<Resource<AddProductsResponse>> = flow {
+        try {
+            val response = shoppieApi.uploadProduct(
+                token, addProduct
+            )
+            emit(Resource.Success(data = response))
+
+        } catch (e: Exception) {
+            emit(Resource.Error(message = e.message.toString()))
+
+        }
+
     }
 }

@@ -1,16 +1,22 @@
 package com.example.shoppieadmin.presentation.home.add_products
 
+import android.content.Context
 import android.net.Uri
 import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.core.os.trace
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.shoppieadmin.data.remote.ShoppieApi
+import com.example.shoppieadmin.domain.auth.add_products.models.AddProduct
 import com.example.shoppieadmin.domain.auth.add_products.use_cases.UploadImageUseCase
+import com.example.shoppieadmin.domain.auth.main.datamanager.LocalUserManager
 import com.example.shoppieadmin.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,7 +25,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddProductsViewModel @Inject constructor(
-    private val uploadImageUseCase: UploadImageUseCase
+    private val uploadImageUseCase: UploadImageUseCase,
+    private val shoppieRepo: ShoppieApi,
+    private val localUserManager: LocalUserManager
 ): ViewModel() {
 
     var productsState by mutableStateOf<AddProductsState>(AddProductsState())
@@ -71,8 +79,6 @@ class AddProductsViewModel @Inject constructor(
     }
 
 
-
-
     //Add Images to cloudinary
     fun addImages(imageUris: List<Uri>) {
         _images.value = imageUris
@@ -85,6 +91,8 @@ class AddProductsViewModel @Inject constructor(
                     urls.add(url)
                 }
                 _uploadResults.value = Resource.Success(urls)
+                updateProductImages(urls)
+                Log.e("add_product_viewmodel", "upload images: =====> ${productsState.productImages}")
             } catch (e: Exception) {
                 _uploadResults.value = Resource.Error("Upload failed due to ${e.message}")
             } finally {
@@ -92,4 +100,51 @@ class AddProductsViewModel @Inject constructor(
             }
         }
     }
+
+    fun onUploadButtonClick() {
+        productsState = productsState.copy(
+            isLoading = true
+        )
+
+        viewModelScope.launch {
+            localUserManager.readAppToken().collect { token ->
+                token?.let {
+                     try {
+                        shoppieRepo.uploadProduct(
+                            token = it,
+                            addProduct = AddProduct(
+                                name = productsState.nameInput,
+                                description = productsState.descriptionInput,
+                                category = productsState.productCategory,
+                                quantity = productsState.quantity.toInt(),
+                                price = productsState.price.toInt(),
+                                images = productsState.productImages
+                            )
+                        )
+
+                        productsState = productsState.copy(
+                            isSuccessfullyUploaded = true,
+                            isLoading = false,
+                            navigateToBack = true
+                        )
+
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                         productsState =  productsState.copy(
+                            errorFound = e.message
+                        )
+                    } finally {
+                         productsState = productsState.copy(
+                            isLoading = false
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    private fun updateProductImages(urls: List<String>) {
+        productsState = productsState.copy(productImages = urls)
+    }
 }
+

@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -27,12 +26,19 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -44,6 +50,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.example.shoppieadmin.presentation.auth.login.components.CustomButton
 import com.example.shoppieadmin.presentation.home.add_products.components.ProductsDetailsContainer
@@ -51,14 +58,17 @@ import com.example.shoppieadmin.ui.theme.Orange
 import com.example.shoppieadmin.ui.theme.PrimaryColor
 import com.example.shoppieadmin.ui.theme.PrimaryDark
 import com.example.shoppieadmin.utils.Resource
+import kotlinx.coroutines.launch
+
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
-fun AddProductsScreen(viewModel: AddProductsViewModel = hiltViewModel()) {
+fun AddProductsScreen(
+    viewModel: AddProductsViewModel = hiltViewModel(),
+    ) {
 
     val images by viewModel.images.collectAsState()
     val uploadResult by viewModel.uploadResults.collectAsState()
-    val scrollState = rememberScrollState()
 
     val pickImages = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetMultipleContents()
@@ -67,19 +77,32 @@ fun AddProductsScreen(viewModel: AddProductsViewModel = hiltViewModel()) {
     }
 
     val pagerState = rememberPagerState(initialPage = 0, pageCount = { images.size })
+    val imageUrlList = remember { mutableStateListOf<String>() }
+    if (uploadResult is Resource.Success) {
+        imageUrlList.clear()
+        imageUrlList.addAll((uploadResult as Resource.Success<List<String>>).data ?: emptyList())
+    }
 
-    Scaffold(topBar = {
+    val snackBarHostState = remember { SnackbarHostState() }
+    val coroutineScope = rememberCoroutineScope()
+
+
+    Scaffold(
+        topBar = {
         TopAppBar(title = {
             Text(text = "Top App Bar")
         }, navigationIcon = {
-            IconButton(onClick = {}) {
+            IconButton(onClick = {
+
+            }) {
                 Icon(Icons.Filled.ArrowBack, "backIcon")
             }
         }, colors = TopAppBarDefaults.topAppBarColors(
             containerColor = PrimaryColor
-        )
-        )
-    }) { paddingValues ->
+        ))
+    },
+        snackbarHost = { SnackbarHost(snackBarHostState) }
+    ) { paddingValues ->
 
         LazyColumn(
             modifier = Modifier
@@ -87,6 +110,14 @@ fun AddProductsScreen(viewModel: AddProductsViewModel = hiltViewModel()) {
                 .padding(top = paddingValues.calculateTopPadding()),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
+
+            if (viewModel.productsState.navigateToBack) {
+                coroutineScope.launch {
+                    snackBarHostState.showSnackbar(
+                        "Product added"
+                    )
+                }
+            }
             item {
                 val stroke = Stroke(
                     width = 2f, pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f)
@@ -174,10 +205,11 @@ fun AddProductsScreen(viewModel: AddProductsViewModel = hiltViewModel()) {
                     text = "Upload",
                     backgroundColor = Orange,
                     contentColor = Color.White,
-                    onButtonClicked = { /*TODO*/ },
-                    isLoading = false
+                    onButtonClicked =  viewModel::onUploadButtonClick,
+                    isLoading = viewModel.productsState.isLoading
                 )
             }
+
             item {
                 Spacer(modifier = Modifier.height(180.dp))
             }
