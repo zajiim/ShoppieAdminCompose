@@ -17,7 +17,7 @@ class CloudinaryRepoImpl @Inject constructor(): CloudinaryRepo {
         return suspendCancellableCoroutine { continuation ->
             Log.e("tag_add_product_viewmodel", "upload fn " )
             MediaManager.get().upload(imageUri).unsigned("lqvxamnz")
-                .option("folder", "productImages")
+                .option("asset_folder", "productImages")
                 .callback(object: UploadCallback {
                     override fun onStart(requestId: String?) {
                         Log.e("tag_add_product_viewmodel", "inside onstart " )
