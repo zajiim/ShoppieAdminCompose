@@ -1,6 +1,7 @@
 package com.example.shoppieadmin.presentation.auth.login
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,6 +20,7 @@ import com.example.shoppieadmin.R
 import com.example.shoppieadmin.core.navigation.Graph
 import com.example.shoppieadmin.presentation.auth.login.components.LoginContainer
 import com.example.shoppieadmin.ui.theme.Orange
+import com.example.shoppieadmin.ui.theme.PrimaryColor
 
 @Composable
 fun LoginScreen(
@@ -39,7 +41,7 @@ fun LoginScreen(
     }
 
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize().background(PrimaryColor),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

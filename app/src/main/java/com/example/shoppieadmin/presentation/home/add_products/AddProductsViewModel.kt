@@ -74,6 +74,12 @@ class AddProductsViewModel @Inject constructor(
         )
     }
 
+    fun onBrandChange(newValue: String) {
+        productsState = productsState.copy(
+            brandName = newValue
+        )
+    }
+
 
     //Add Images to cloudinary
     fun addImages(imageUris: List<Uri>) {
@@ -114,7 +120,8 @@ class AddProductsViewModel @Inject constructor(
                                 category = productsState.productCategory,
                                 quantity = productsState.quantity.toInt(),
                                 price = productsState.price.toInt(),
-                                images = productsState.productImages
+                                images = productsState.productImages,
+                                brand = productsState.brandName
                             )
                         )
 

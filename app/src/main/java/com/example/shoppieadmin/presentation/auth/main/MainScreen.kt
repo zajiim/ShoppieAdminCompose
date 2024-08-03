@@ -26,14 +26,17 @@ import com.example.shoppieadmin.ui.theme.PrimaryColor
 import com.example.shoppieadmin.ui.theme.PrimaryDark
 
 @Composable
-fun MainScreen(navHostController: NavHostController = rememberNavController()) {
+fun MainScreen(
+    navHostController: NavHostController = rememberNavController()) {
     Scaffold(
         bottomBar = {
             BottomBar(navHostController)
         }
     ) { paddingValues ->
-        val padding = paddingValues
-        MainNavGraph(navController = navHostController)
+        MainNavGraph(
+            navController = navHostController,
+            bottomPadding = paddingValues
+            )
 
     }
 }

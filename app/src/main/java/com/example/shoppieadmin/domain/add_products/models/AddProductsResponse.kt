@@ -14,6 +14,8 @@ data class AddProductsResponse(
     val images: List<String>,
     @SerializedName("name")
     val name: String,
+    @SerializedName("brand")
+    val brand: String,
     @SerializedName("price")
     val price: Int,
     @SerializedName("quantity")

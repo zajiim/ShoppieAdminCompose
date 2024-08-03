@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -35,6 +36,7 @@ import com.example.shoppieadmin.ui.theme.PrimaryColor
 fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
+    bottomPadding: PaddingValues,
     onClick: () -> Unit
 ) {
 
@@ -84,6 +86,7 @@ fun HomeScreen(
                                 product = it
                             )
                         } ?: ShimmerItem(modifier = Modifier)
+                        Spacer(modifier = Modifier.height(bottomPadding.calculateBottomPadding()))
                     }
 
                     products.apply {
@@ -115,7 +118,7 @@ fun HomeScreen(
 
         FloatingActionButton(modifier = Modifier
             .align(Alignment.BottomCenter)
-            .padding(bottom = 86.dp)
+            .padding(bottom = bottomPadding.calculateBottomPadding())
             .wrapContentSize(),
             containerColor = PrimaryColor,
             onClick = { onClick() }) {

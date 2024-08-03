@@ -9,6 +9,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,6 +20,7 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.CircularProgressIndicator
@@ -67,7 +69,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun AddProductsScreen(
     viewModel: AddProductsViewModel = hiltViewModel(),
-    navController: NavHostController
+    navController: NavHostController,
+    bottomPadding: PaddingValues
     ) {
 
     val images by viewModel.images.collectAsState()
@@ -98,7 +101,7 @@ fun AddProductsScreen(
             IconButton(onClick = {
                 navController.navigateUp()
             }) {
-                Icon(Icons.Filled.ArrowBack, "backIcon")
+                Icon(Icons.AutoMirrored.Filled.ArrowBack, "backIcon")
             }
         }, colors = TopAppBarDefaults.topAppBarColors(
             containerColor = PrimaryColor
@@ -177,14 +180,7 @@ fun AddProductsScreen(
                                 .background(PrimaryColor.copy(alpha = 0.1f))
                                 .align(Alignment.Center)
                                 .shimmerEffect()
-                        ) {
-
-//                            CircularProgressIndicator(
-//                                modifier = Modifier.align(
-//                                    Alignment.Center
-//                                )
-//                            )
-                        }
+                        )
                     }
                 }
             }
@@ -201,6 +197,8 @@ fun AddProductsScreen(
                     onCountChanged = viewModel::onQuantityChange,
                     categoryValue = { viewModel.productsState.productCategory },
                     onCategoryChanged = viewModel::onCategoryChange,
+                    brandValue = {viewModel.productsState.brandName},
+                    onBrandChanged = viewModel::onBrandChange,
                     cursorColor = PrimaryDark,
                 )
             }
@@ -218,7 +216,7 @@ fun AddProductsScreen(
             }
 
             item {
-                Spacer(modifier = Modifier.height(180.dp))
+                Spacer(modifier = Modifier.height(bottomPadding.calculateBottomPadding()))
             }
         }
 
