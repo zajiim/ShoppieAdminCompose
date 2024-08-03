@@ -96,7 +96,7 @@ fun AddProductsScreen(
     Scaffold(
         topBar = {
         TopAppBar(title = {
-            Text(text = "Top App Bar")
+            Text(text = "Add Products")
         }, navigationIcon = {
             IconButton(onClick = {
                 navController.navigateUp()

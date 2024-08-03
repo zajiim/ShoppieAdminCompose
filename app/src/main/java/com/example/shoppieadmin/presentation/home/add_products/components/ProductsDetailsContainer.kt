@@ -48,6 +48,7 @@ fun ProductsDetailsContainer(
     cursorColor: Color
     ) {
     val brands = listOf("Nike", "Puma", "Converse", "Under Armour", "Adidas")
+    val category = listOf("Popular Brands", "New Arrivals", "Trending Shoes", "Top Rated", "Suggested for you")
 
     Column(
         modifier = modifier
@@ -93,11 +94,12 @@ fun ProductsDetailsContainer(
             keyboardType = KeyboardType.Number
         )
 
-        CustomProductsTextField(
-            textValue = categoryValue(),
+        CustomProductsDropdown(
+            placeHolderText = "Select a Category",
+            selectedValue = categoryValue(),
             onValueChange = onCategoryChanged,
-            cursorColor = cursorColor,
-            placeHolderText = "Product category"
+            brands = category,
+            cursorColor = cursorColor
         )
     }
 
